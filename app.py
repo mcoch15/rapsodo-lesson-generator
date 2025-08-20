@@ -3,6 +3,12 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from schemas import PitchingInput, HittingInput, LessonResponse
 from rules import generate_pitching_lesson, generate_hitting_lesson
+from fastapi.responses import RedirectResponse
+
+@app.get("/", include_in_schema=False)
+def index():
+    return RedirectResponse(url="/docs", status_code=302)
+
 import os
 
 app = FastAPI(title="Rapsodo Lesson Generator")  # <-- must be named 'app'
@@ -34,6 +40,4 @@ def lesson_hitting(payload: HittingInput):
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
-@app.get("/")
-def root():
-    return {"message": "Rapsodo Lesson Generator is running. See /docs for the API."}
+
