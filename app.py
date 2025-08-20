@@ -34,3 +34,6 @@ def lesson_hitting(payload: HittingInput):
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
+@app.get("/")
+def root():
+    return {"message": "Rapsodo Lesson Generator is running. See /docs for the API."}
