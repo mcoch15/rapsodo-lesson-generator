@@ -17,10 +17,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# 👇 routes can only come AFTER app is defined
+# 👇 changed this one
 @app.get("/", include_in_schema=False)
 def root():
-    return {"message": "Rapsodo Lesson Generator is running. See /docs"}
+    return RedirectResponse("/docs", status_code=302)
 
 @app.get("/healthz")
 def healthz():
